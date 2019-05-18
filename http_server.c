@@ -45,12 +45,11 @@ int main (){
             printf("Failed to accept new connection");
             return 0;
         }
-        char buffer[30000] = {0};
-        int readVal = read(new_socket_fd, buffer, 30000);
-        printf("%s", buffer);
-        if(readVal < 0){
+        char buffer[16384] = {0};
+        if(read(new_socket_fd, buffer, 16384) < 0){
             printf("Request was empty");
         }
+        printf("%s", buffer);
         
         write(new_socket_fd, response, strlen(response));
         close(new_socket_fd);
